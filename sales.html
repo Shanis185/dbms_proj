@@ -1,25 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sales Report</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f0f0f0;
-    }
-    h1 {
-      text-align: center;
-      margin-top: 50px;
-    }
-    /* Add more styles for sales report content if needed */
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Page</title>
+    <style>
+        /* Basic styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group select, .form-group input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-group input[type="text"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .total-amount {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
-  <h1>Sales Report</h1>
-  <!-- Add content for sales report -->
+    <div class="container">
+        <h1>Sales Page</h1>
+        <div class="form-group">
+            <label for="product">Select Product:</label>
+            <select id="product">
+                <option value="product1">Product 1 ($10)</option>
+                <option value="product2">Product 2 ($20)</option>
+                <option value="product3">Product 3 ($30)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" min="1" value="1">
+        </div>
+        <div class="form-group">
+            <label for="total">Total Amount:</label>
+            <input type="text" id="total" readonly>
+        </div>
+        <button class="btn" onclick="generateInvoice()">Generate Invoice</button>
+    </div>
+
+    <script>
+        function generateInvoice() {
+            var product = document.getElementById("product").value;
+            var quantity = document.getElementById("quantity").value;
+
+            var price;
+            switch (product) {
+                case "product1":
+                    price = 10;
+                    break;
+                case "product2":
+                    price = 20;
+                    break;
+                case "product3":
+                    price = 30;
+                    break;
+                default:
+                    price = 0;
+                    break;
+            }
+            var total = price * quantity;
+
+            document.getElementById("total").value = "$" + total.toFixed(2);
+            // Here you can add logic to save the invoice details to a database
+        }
+    </script>
 </body>
 </html>
