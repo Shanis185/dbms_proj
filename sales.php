@@ -21,12 +21,13 @@
 </head>
 <body>
     <h1>Invoice</h1>
-    <form id="invoiceForm">
+    <form id="invoiceForm" method="post" action="save_invoice.php">
         <label for="productCode">Product Code:</label>
         <input type="text" id="productCode" name="productCode"><br><br>
         <label for="quantity">Quantity:</label>
         <input type="number" id="quantity" name="quantity" min="1"><br><br>
         <button type="button" onclick="calculateTotal()">Add Item</button>
+        <button type="submit" name="saveInvoice">Save Invoice</button> <!-- Add save button -->
     </form>
     <br>
     <table id="invoiceTable">
@@ -43,8 +44,14 @@
             <!-- Invoice items will be added here -->
         </tbody>
     </table>
+    <div id="invoiceTotal">
+        <p>Total Amount: <span id="totalAmount">0</span></p>
+    </div>
 
     <script>
+        var invoiceNumber = 1; // Initial invoice number
+        var totalAmount = 0; // Total amount of all items
+
         function calculateTotal() {
             var productCode = document.getElementById("productCode").value;
             var quantity = parseInt(document.getElementById("quantity").value);
@@ -59,17 +66,20 @@
                         var productName = productDetails.product_name;
                         var mrp = productDetails.mrp;
                         var rate = productDetails.rate;
-                        var total = rate * quantity;
+                        var totalItemAmount = rate * quantity;
 
                         var newRow = "<tr>";
                         newRow += "<td>" + productName + "</td>";
                         newRow += "<td>" + mrp + "</td>";
                         newRow += "<td>" + rate + "</td>";
                         newRow += "<td>" + quantity + "</td>";
-                        newRow += "<td>" + total + "</td>";
+                        newRow += "<td>" + totalItemAmount + "</td>";
                         newRow += "</tr>";
 
                         document.getElementById("invoiceBody").innerHTML += newRow;
+
+                        totalAmount += totalItemAmount; // Add total item amount to the total amount
+                        document.getElementById("totalAmount").textContent = totalAmount;
                     } else {
                         alert("Invalid product code!");
                     }
