@@ -2,7 +2,7 @@
 // Step 1: Establish a Database Connection
 $conn = new mysqli('127.0.0.1:3307', 'root', '', 'dbms');
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("Connection failed...: " . $conn->connect_error);
 }
 
 // Step 2: Fetch product details based on product code
