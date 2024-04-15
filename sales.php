@@ -22,6 +22,9 @@
 <body>
     <h1>Invoice</h1>
     <form id="invoiceForm" method="post" action="save_invoice.php">
+        
+        <label for="customer_no">Customer Number:</label><br>
+        <input type="number" id="customer_no" name="customer_no"><br><br>
         <label for="productCode">Product Code:</label>
         <input type="text" id="productCode" name="productCode"><br><br>
         <label for="quantity">Quantity:</label>
@@ -49,7 +52,7 @@
     </div>
 
     <script>
-        var invoiceNumber = 1; // Initial invoice number
+        var invoiceNumber = 5; // Initial invoice number
         var totalAmount = 0; // Total amount of all items
 
         function calculateTotal() {

@@ -5,7 +5,7 @@
     $rate = $_POST['rate'];
     $p_rate = $_POST['p_rate'];    
 
-    $conn = new mysqli('127.0.0.1:3307','root','','dbms');
+    $conn = new mysqli('127.0.0.1:3306','root','','dbms');
     if($conn->connect_error)
     {
         die('connection Failed : ' . $conn->connect_error);
