@@ -33,7 +33,7 @@ if ($result->num_rows > 0) {
     $total = $rate * $quantity;
 
     // Insert invoice details into database
-    $sql = "INSERT INTO invoice (invoice_no,customer_no, invoice_date, total_amount) 
+    $sql = "INSERT INTO invoice (invoice_no,customer_number, invoice_date, total_amount) 
             VALUES (?,?, ?, ?)";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssd", $invoiceNumber,$customer_no, $date, $total);
