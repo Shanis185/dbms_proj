@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase</title><link rel="stylesheet" type="text/css" href="purchase.css">
+
+
+</head>
+<body>
+    <h1>Purchase</h1>
+    <form action="purchase.php" method="post">
+        <label for="Bill_no>Bill Number:</label><br>
+        <input type="text" id="Bill_no" name="Bill_no" required><br><br>
+        
+       
+        <label for="product_code">Product Code:</label><br>
+        <input type="text" id="product_code" name="product_code" required><br><br>
+        
+        <label for="quantity">Quantity:</label><br>
+        <input type="number" id="quantity" name="quantity" min="1" required><br><br>
+
+        <button type="submit">Purchase</button>
+    </form>
+</body>
+</html>

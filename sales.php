@@ -5,34 +5,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        form {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="number"],
+        input[type="text"],
+        button {
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
         table {
             border-collapse: collapse;
             width: 100%;
+            margin-top: 20px;
         }
         th, td {
-            border: 1px solid black;
+            border: 1px solid #ddd;
             padding: 8px;
             text-align: left;
         }
         th {
             background-color: #f2f2f2;
         }
+        #invoiceTotal {
+            text-align: right;
+            margin-right: 20px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <h1>Invoice</h1>
+    <div id="invoiceNumberDisplay">
+        Invoice Number: <span id="invoiceNumber"></span>
+    </div>
     <form id="invoiceForm" method="post" action="save_invoice.php">
-        
-        <label for="customer_no">Customer Number:</label><br>
-        <input type="number" id="customer_no" name="customer_no"><br><br>
+        <label for="customer_no">Customer Number:</label>
+        <input type="number" id="customer_no" name="customer_no" required><br><br>
         <label for="productCode">Product Code:</label>
-        <input type="text" id="productCode" name="productCode"><br><br>
+        <input type="text" id="productCode" name="productCode" required><br><br>
         <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" min="1"><br><br>
+        <input type="number" id="quantity" name="quantity" min="1" required><br><br>
         <button type="button" onclick="calculateTotal()">Add Item</button>
-        <button type="submit" name="saveInvoice">Save Invoice</button> <!-- Add save button -->
+        <button type="submit" name="saveInvoice">Save Invoice</button>
     </form>
-    <br>
     <table id="invoiceTable">
         <thead>
             <tr>
@@ -52,7 +94,7 @@
     </div>
 
     <script>
-        var invoiceNumber = 5; // Initial invoice number
+        var invoiceNumber = ""; // Initialize invoice number variable
         var totalAmount = 0; // Total amount of all items
 
         function calculateTotal() {
@@ -90,6 +132,23 @@
             };
             xhr.send();
         }
+
+        // Function to set the generated invoice number
+        function setInvoiceNumber(number) {
+            invoiceNumber = number;
+            document.getElementById("invoiceNumber").textContent = invoiceNumber;
+        }
+
+        // AJAX request to fetch and set the generated invoice number
+        var xhrInvoice = new XMLHttpRequest();
+        xhrInvoice.open("GET", "generate_invoice_number.php", true);
+        xhrInvoice.onreadystatechange = function () {
+            if (xhrInvoice.readyState === 4 && xhrInvoice.status === 200) {
+                var generatedNumber = xhrInvoice.responseText;
+                setInvoiceNumber(generatedNumber); // Set the generated invoice number
+            }
+        };
+        xhrInvoice.send();
     </script>
 </body>
 </html>

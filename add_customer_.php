@@ -4,7 +4,7 @@
     $ph_no = $_POST['ph_no'];
     $place = $_POST['place'];    
 
-    $conn = new mysqli('127.0.0.1:3306','root','','dbms');
+    $conn = new mysqli('localhost:3306','root','','dbms');
     if($conn->connect_error)
     {
         die('connection Failed : ' . $conn->connect_error);
@@ -12,7 +12,7 @@
     
     else
     {
-        $stmt = $conn->prepare("insert into customer(customer_no,customer_name,ph_no,place) values('$customer_no','$customer_name','$ph_no','$place')");
+        $stmt = $conn->prepare("insert into customer(cust_no,customer_name,ph_no,place) values('$customer_no','$customer_name','$ph_no','$place')");
 
         $stmt->execute();
         $stmt->close();
