@@ -125,12 +125,31 @@
 
                         totalAmount += totalItemAmount; // Add total item amount to the total amount
                         document.getElementById("totalAmount").textContent = totalAmount;
+
+                        // Update stock
+                        updateStock(productCode, quantity);
                     } else {
                         alert("Invalid product code!");
                     }
                 }
             };
             xhr.send();
+        }
+
+        // Function to update stock
+        function updateStock(productCode, quantity) {
+            var xhrStock = new XMLHttpRequest();
+            xhrStock.open("POST", "update_stock.php", true);
+            xhrStock.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhrStock.onreadystatechange = function () {
+                if (xhrStock.readyState === 4 && xhrStock.status === 200) {
+                    var response = xhrStock.responseText;
+                    if (response !== "success") {
+                        alert("Failed to update stock for product code: " + productCode);
+                    }
+                }
+            };
+            xhrStock.send("productCode=" + productCode + "&quantity=" + quantity);
         }
 
         // Function to set the generated invoice number
